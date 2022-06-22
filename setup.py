@@ -1,13 +1,13 @@
 from xml.etree.ElementTree import VERSION
-from setuptools import setup
+from setuptools import setup,find_packages
 from typing import List
 
 
 PROJECT_NAME="housing-predictor"
-VERSION="0.0.1"
+VERSION="0.0.3"
 AUTHOR="Ankith Patil"
 DESCRIPTION="This is a first FSDS Nov batch Machine Learning Project"
-PACKAGES=["housing"]
+PACKAGES=find_packages() #this finds all the folders where there is __init__ file and returns those folders name 
 REQUIREMENT_FILE_NAME="requirements.txt"
 
 def get_requirements_list()->List[str]:
@@ -19,7 +19,6 @@ def get_requirements_list()->List[str]:
 
     with open(REQUIREMENT_FILE_NAME) as requirement_file:
         requirement_file.readlines()
-
 
 setup(
 name=PROJECT_NAME,

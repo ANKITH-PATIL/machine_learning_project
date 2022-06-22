@@ -115,6 +115,10 @@ docker stop <container_id>
 ```
 
 no need to type pip install -r requirements.txt after typing the following command
-'''
+```
 python setup.py install
-'''
+```
+
+```
+-e . this will install all the packages present in the folders like housing
+```
