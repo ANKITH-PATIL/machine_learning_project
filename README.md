@@ -113,3 +113,8 @@ Tos stop docker conatiner
 ```
 docker stop <container_id>
 ```
+
+no need to type pip install -r requirements.txt after typing the following command
+'''
+python setup.py install
+'''
