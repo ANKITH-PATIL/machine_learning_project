@@ -121,4 +121,6 @@ python setup.py install
 
 ```
 -e . this will install all the packages present in the folders like housing
+     also it runs the setup file internally
+     
 ```
