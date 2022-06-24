@@ -14,8 +14,8 @@ def index():
         raise Exception("We are testing custom exception")
     except Exception as e:
         housing=housing_exception(e,sys)
-        logging.INFO(housing.error_message)
-        logging.INFO("We are testing logging module")
+        logging.info(housing.error_message)
+        logging.info("We are testing logging module")
     return "Starting Machine Learning Project and checking for the second time for checking whether we have established complete CICD pipeline"
 
 if __name__=="__main__":
