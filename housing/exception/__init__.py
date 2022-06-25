@@ -8,6 +8,15 @@ class housing_exception(Exception):
         self.error_message=housing_exception.get_detailed_error_message(error_message=error_message,
                                                                         error_detail=error_detail)
 
+
+#to get the detailed error message we have to modify with following codes
+# we have customised how the error message should be printed 
+
+# we try to understand which file and which line abd what error message is exactly present in the code
+
+
+
+
     @staticmethod
     def get_detailed_error_message(error_message:Exception,error_detail:sys)->str:
         """
@@ -18,7 +27,7 @@ class housing_exception(Exception):
         line_number=exec_tb.tb_frame.f_lineno
         file_name=exec_tb.tb_frame.f_code.co_filename
 
-        error_message=f"Error occured in scrip: [{file_name}] at line number :[{line_number}] error message:[{error_message}"
+        error_message=f"Error occured in script : [{file_name}] at line number :[{line_number}] error message:[{error_message}"
         return error_message
 
     

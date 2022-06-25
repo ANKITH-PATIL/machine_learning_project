@@ -16,7 +16,7 @@ def index():
         housing=housing_exception(e,sys)
         logging.info(housing.error_message)
         logging.info("We are testing logging module")
-    return "Starting Machine Learning Project and checking for the second time for checking whether we have established complete CICD pipeline"
+    return "Starting Machine Learning Project and checking for the second time for checking whether we have est.complete CICD pipeline"
 
 if __name__=="__main__":
     app.run(debug=True)
