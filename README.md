@@ -124,3 +124,9 @@ python setup.py install
      also it runs the setup file internally
      
 ```
+
+to run jupyter notebook commands
+
+```
+pip install ipykernel
+```
