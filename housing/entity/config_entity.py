@@ -11,11 +11,15 @@ data_transformation_config=namedtuple("data_transformation_config",[
 ])
 
 
-model_trainig_config=namedtuple("model_training_config",["trained_model_filepath","base_accuracy"])
+model_training_config=namedtuple("model_training_config",["trained_model_filepath","base_accuracy"])
 
 
 model_evaluation_config=namedtuple("model_evaluation_config",["model_evaluation_filepath","time_stamp"])
 
 
 model_pusher_config=namedtuple("model_pusher_config",["export_dir_path"])
+
+
+training_pipeline_config=namedtuple("training_pipeline_config",["artifact_dir"])
+
 
