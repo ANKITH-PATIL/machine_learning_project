@@ -12,7 +12,7 @@ def read_yaml_file(filepath:str)->dict:
     reads YAML file and returns the contents as a dictionary.
     """
     try:
-        with open(config_file_path,"rb") as f:
+        with open(filepath,"rb") as f:
             return yaml.safe_load(f)
             
     

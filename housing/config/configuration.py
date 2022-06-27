@@ -9,14 +9,20 @@ from housing.exception import housing_exception
 import os,sys
  
 
-class CONFIGURATION:
+class Configuration:
 
     def __init__(self,
         config_file_path:str=CONFIG_FILE_PATH,
         current_time_stamp:str=CURRENT_TIME_STAMP
         )->None:
-        self.config_info=read_yaml_file(filepath=config_file_path)
-        self.training_pipeline_config=self.get_training_pipeline_config()
+        try:
+            self.config_info=read_yaml_file(filepath=config_file_path)
+            self.training_pipeline_config=self.get_training_pipeline_config()
+            self.time_stamp=current_time_stamp
+
+        except Exception as e:
+            raise housing_exception(e,sys) from e
+
         
         
 
@@ -46,8 +52,9 @@ class CONFIGURATION:
             artifact_dir=os.path.join(ROOT_DIR,training_pipeline_config[TRAINING_PIPELINE_CONFIG_NAME_KEY],
             self.training_pipeline_config[TRAINING_PIPELINE_ARTIFACT_CONFIG_KEY]
             )
-            Training_Pipeline_Config(artifact_dir=artifact_dir)
+            training_pipeline_config=Training_Pipeline_Config(artifact_dir=artifact_dir)
             logging.info(f"Training pipeline config: {training_pipeline_config}")
+            return training_pipeline_config
 
         except  Exception as e:
             raise housing_exception(e,sys) from e
