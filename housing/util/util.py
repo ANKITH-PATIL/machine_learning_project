@@ -1,7 +1,7 @@
 #any helper functions are written in the util file
-#
+
 #like reading the yaml file or how to create and read a pickle file 
-#this function is not part of the pipeline
+#this function is not part of the pipeline but assist it in making the pipeline modular
 
 import yaml
 from housing.exception import housing_exception

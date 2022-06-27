@@ -1,3 +1,12 @@
+#yaml file is similar to the json file (but is better readable than json)
+#where the information is written in the key value pair and is read from the config folder
+# present in the housing folder
+
+#thus we access the file when we give the key and subsequently find the value for it 
+
+#we can save this file in the local sysytem or the database and also the thus accordingly provide the login credentials for accessing
+# this file in the DB
+
 training_pipeline_config:
   pipeline_name: housing
   artifact_dir: artifact
