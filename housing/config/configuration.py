@@ -29,7 +29,21 @@ class Configuration:
 
 
     def get_data_ingestion_config(self)-> Data_Ingestion_Config:
-        pass
+        try:
+            self.config_info.
+            data_ingestion_config=DataIngestionConfig(
+                dataset_download_url=dataset_download_url, 
+                tgz_download_dir=tgz_download_dir, 
+                raw_data_dir=raw_data_dir, 
+                ingested_train_dir=ingested_train_dir, 
+                ingested_test_dir=ingested_test_dir
+            )
+            logging.info(f"Data Ingestion config:{data_ingestion_config}")
+            
+            return data_ingestion_config
+
+        except Exception as e:
+            raise housing_exception(e,sys) from e
 
     def get_data_validation_config(self)->Data_Validation_Config:
         pass
@@ -59,6 +73,6 @@ class Configuration:
         except  Exception as e:
             raise housing_exception(e,sys) from e
 
-        return 
+         
 
     
