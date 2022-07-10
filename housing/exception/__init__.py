@@ -14,6 +14,8 @@ class housing_exception(Exception):
 
 # we try to understand which file and which line abd what error message is exactly present in the code
 
+#after this we get custom error msg like error occured in script >> folder location >> line number >> error msg
+
 
 
 
