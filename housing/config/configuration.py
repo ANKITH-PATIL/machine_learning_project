@@ -29,15 +29,54 @@ class Configuration:
 
 
     def get_data_ingestion_config(self)-> Data_Ingestion_Config:
+
+        #this will create data ingestion folder inside the artifacts folder:
+        # artifacts >> data ingestion >> timestamp >> all foldeds(tgz, raw data , ingested data >>(train, test))
         try:
-            self.config_info.
-            data_ingestion_config=DataIngestionConfig(
-                dataset_download_url=dataset_download_url, 
-                tgz_download_dir=tgz_download_dir, 
-                raw_data_dir=raw_data_dir, 
-                ingested_train_dir=ingested_train_dir, 
-                ingested_test_dir=ingested_test_dir
+            artifact_dir = self.training_pipeline_config.artifact_dir
+            data_ingestion_artifact_dir=os.path.join(
+                artifact_dir,
+                DATA_INGESTION_ARTIFACT_DIR,
+                self.time_stamp
             )
+            data_ingestion_info = self.config_info[DATA_INGESTION_CONFIG_KEY]
+            
+            dataset_download_url = data_ingestion_info[DATA_INGESTION_DOWNLOAD_URL_KEY]
+            tgz_download_dir = os.path.join(
+                data_ingestion_artifact_dir,
+                data_ingestion_info[DATA_INGESTION_TGZ_DOWNLOAD_DIR_KEY]
+            )
+            raw_data_dir = os.path.join(data_ingestion_artifact_dir,
+            data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
+            )
+
+            ingested_data_dir = os.path.join(
+                data_ingestion_artifact_dir,
+                data_ingestion_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY]
+            )
+            ingested_train_dir = os.path.join(
+                ingested_data_dir,
+                data_ingestion_info[DATA_INGESTION_TRAIN_DIR_KEY]
+            )
+            ingested_test_dir =os.path.join(
+                ingested_data_dir,
+                data_ingestion_info[DATA_INGESTION_TEST_DIR_KEY]
+            )
+
+
+
+
+
+
+            data_ingestion_info= self.config_info[DATA_INGESTION_CONFIG_KEY]
+
+            data_ingestion_config=DataIngestionConfig
+            dataset_download_url=data_ingestion_info[DATA_INGESTION_DOWNLOAD_URL_KEY] 
+            tgz_download_dir=data_ingestion_info[DATA_INGESTION_TGZ_DOWNLOAD_DIR_KEY]
+            raw_data_dir=data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY], 
+            ingested_train_dir=data_ingestion_info[DATA_INGESTION_TRAIN_DIR_KEY],
+            ingested_test_dir=data_ingestion_info[DATA_INGESTION_TEST_DIR_KEY]
+            
             logging.info(f"Data Ingestion config:{data_ingestion_config}")
             
             return data_ingestion_config
@@ -69,6 +108,13 @@ class Configuration:
             training_pipeline_config=Training_Pipeline_Config(artifact_dir=artifact_dir)
             logging.info(f"Training pipeline config: {training_pipeline_config}")
             return training_pipeline_config
+
+            #all the folders of the pipeline will be contained in this artifact folder
+
+            #this folder will contain all the above output folders of the
+            # above components 
+
+
 
         except  Exception as e:
             raise housing_exception(e,sys) from e
