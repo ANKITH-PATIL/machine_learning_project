@@ -2,14 +2,19 @@
 # while the actual folders are created by the component folders like this one 
 
 import sys
+
+from numpy.lib.shape_base import split
 from housing.entity.config_entity import Data_Ingestion_Config
 from housing.exception import housing_exception
 import os, sys
 import tarfile
 from six.moves import urllib
+import pandas as pd
+import numpy as np
 
+from sklearn.model_selection import StratifiedShuffleSplit
 from housing.logger import logging
-from housing.entity.artifact_entity import Da
+from housing.entity.artifact_entity import D
 
 class DataIngestion:
     
@@ -79,8 +84,50 @@ class DataIngestion:
     
 
 
-    def split_data_as_train_test(self):
-        pass
+    def split_data_as_train_test(self)-> DataIngestionArtigact :
+        try:
+            raw_data_dir=self.data_ingestion_config.raw_data_dir
+
+            file_name= os.listdir(raw_data_dir)[0]
+
+            housing_file_path=os.path.join(raw_data_dir,file_name)
+
+            housing_data_frame=pd.read_csv(housing_file_path)
+
+            # Stratified data split:
+
+
+
+            housing_data_frame["income_cat"]=pd.cut(
+                housing_data_frame["median_income"],
+                bins=[0.0,1.5,3.0,4.5,6.0,np.inf] #np.inf makes anything above 6 to be in the category/label 5 
+                #divides the data into groups 
+                # for equtable dist. among test and train datasets
+
+                labels=[1,2,3,4,5]
+
+            )
+            strat_train_set=None
+            strat_test_set=None
+            split=StratifiedShuffleSplit(n_splits=1,test_size=0.2,random_state=42)
+
+            for train_index,test_index in split.split(housing_data_frame, housing_data_frame["income_cat"]):
+                strat_train_set = housing_data_frame.loc[train_index].drop(["income_cat"],axis=1)
+                strat_test_set = housing_data_frame.loc[test_index].drop(["income_cat"],axis=1)
+
+            train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir,
+                                            file_name)
+
+            test_file_path = os.path.join(self.data_ingestion_config.ingested_test_dir,
+                                        file_name)
+
+            if strat_test_set is not None:
+                os.makedirs(self.data_ingestion_config.ingested_train_dir,exist_ok=True)
+                strat_train_set.to_csv(train)
+            if strat_test_set is not None:
+                os.makedirs(self.data_ingestion_config.ingested_test_dir)
+                strat_test_set.to_csv
+
 
         
     def initiate_data_ingestion(self)-> DataIngestionArtifact:
