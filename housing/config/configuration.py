@@ -32,6 +32,8 @@ class Configuration:
 
         #this will create data ingestion folder inside the artifacts folder:
         # artifacts >> data ingestion >> timestamp >> all foldeds(tgz, raw data , ingested data >>(train, test))
+
+        #this function returns the named tuple (Data_Ingestion_Config)
         try:
             artifact_dir = self.training_pipeline_config.artifact_dir
             data_ingestion_artifact_dir=os.path.join(
@@ -65,8 +67,8 @@ class Configuration:
 
             data_ingestion_config=Data_Ingestion_Config(
                 dataset_download_url=dataset_download_url, 
-                tgz_download_dir=tgz_download_dir, 
-                raw_data_dir=raw_data_dir, 
+                tgz_download_dir=tgz_download_dir, #will contain the zip file data
+                raw_data_dir=raw_data_dir, #will contain the extracted file data
                 ingested_train_dir=ingested_train_dir, 
                 ingested_test_dir=ingested_test_dir
             )
@@ -106,10 +108,9 @@ class Configuration:
             logging.info(f"Training pipeline config: {training_pipeline_config}")
             return training_pipeline_config
 
-            #all the folders of the pipeline will be contained in this artifact folder
 
             #this folder will contain all the above output folders of the
-            # above components 
+            # all the components (mentioned above) 
 
 
 
