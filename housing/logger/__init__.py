@@ -1,4 +1,7 @@
 import logging
+#normally in industry scenario we try to keep logs which are 3 months older for project maintanaince  
+# we can use script based on the data time stamp  
+
 from datetime import datetime
 import os
 
@@ -18,5 +21,7 @@ filemode="w",
 format='[%(asctime)s] %(name)s - %(levelname)s - %(message)s',
 level=logging.INFO
 )
+
+
 
 

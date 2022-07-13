@@ -1,3 +1,7 @@
+#this uses the constants and the config_entity named tuples to make directory of the artifacts folder
+#  and adds the different folders of the componenets to it as mentioned in the ingested folder order 
+
+
 from housing.entity.config_entity import Data_Ingestion_Config,Data_Transformation_Config,Data_Validation_Config,\
      Model_Evaluation_Config, Model_Pusher_Config, Model_Training_Config, Training_Pipeline_Config
 from housing.util.util import read_yaml_file
@@ -31,10 +35,11 @@ class Configuration:
     def get_data_ingestion_config(self)-> Data_Ingestion_Config:
 
         #this will create data ingestion folder inside the artifacts folder:
-        # artifacts >> data ingestion >> timestamp >> all foldeds(tgz, raw data , ingested data >>(train, test))
+        # artifacts >> data ingestion >> timestamp >> all folders(tgz, raw data , ingested data >>(train data, test data))
 
         #this function returns the named tuple (Data_Ingestion_Config)
         try:
+            #raise Exception ("testing error")
             artifact_dir = self.training_pipeline_config.artifact_dir
             data_ingestion_artifact_dir=os.path.join(
                 artifact_dir,
@@ -84,7 +89,19 @@ class Configuration:
          
 
     def get_data_validation_config(self)->Data_Validation_Config:
-        pass
+        # try:
+        #     artifact_dir = self.training_pipeline_config.artifact_dir
+        #     data_validation_artifact_dir=os.path.join(
+        #         artifact_dir,
+        #         DATA_VALIDATION_ARTIFACT_DIR,
+        #         self.time_stamp
+        #     )
+        #     data_validation_info=self.config_info[DATA_VALIDATION_CONFIG_KEY]
+            pass
+
+            
+
+                
 
     def get_data_transformation_config(self) -> Data_Transformation_Config:
        pass 
@@ -110,7 +127,7 @@ class Configuration:
 
 
             #this folder will contain all the above output folders of the
-            # all the components (mentioned above) 
+            #  of all the components (mentioned above) 
 
 
 
