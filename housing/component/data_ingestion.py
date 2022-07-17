@@ -115,6 +115,15 @@ class DataIngestion:
             strat_test_set=None
             split=StratifiedShuffleSplit(n_splits=1,test_size=0.2,random_state=42)
 
+        #see as the distribution is similar for both train and train dataset 
+        # this is the reason we use stratified split for train and test data split
+        # for equatable distribution of different categories 
+
+        #why dont we use the cross validation methods(like GRIDSEARCH, RANDOMSEARCH) for dividing the test and train data?
+        #we dont use CV FOR LARGE DATA also as in CV our test and train data is part of training and testing as part of a GRID 
+        #at some point or other but here the data is not used alternatively as training or testing data
+
+
             for train_index,test_index in split.split(housing_data_frame, housing_data_frame["income_cat"]):
                 strat_train_set = housing_data_frame.loc[train_index].drop(["income_cat"],axis=1)
                 strat_test_set = housing_data_frame.loc[test_index].drop(["income_cat"],axis=1)

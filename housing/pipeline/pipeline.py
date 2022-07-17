@@ -1,3 +1,5 @@
+#thru pipeline folder we run all the componenets by calling the components file 
+
 from cmath import e
 from distutils.command.config import config
 from tkinter import E
