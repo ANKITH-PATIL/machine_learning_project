@@ -120,7 +120,7 @@ class DataIngestion:
         # for equatable distribution of different categories 
 
         #why dont we use the cross validation methods(like GRIDSEARCH, RANDOMSEARCH) for dividing the test and train data?
-        #we dont use CV FOR LARGE DATA also as in CV our test and train data is part of training and testing as part of a GRID 
+        #we dont use CV FOR LARGE DATA also as in CV our test and train data is part of training and testing as part of a GRID 6
         #at some point or other but here the data is not used alternatively as training or testing data
 
 

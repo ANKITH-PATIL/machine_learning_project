@@ -74,11 +74,15 @@ class DataValidation:
             # NEAR OCEAN
             #3. Check column names
 
+            # we dont mmodify any data(thats done in the feature engineering stage) here we just check the above steps 
+
 
             validation_status = True
             return validation_status 
         except Exception as e:
             raise housing_exception(e,sys) from e
+
+
 
     def get_and_save_data_drift_report(self):
         try:
@@ -88,7 +92,10 @@ class DataValidation:
 
             profile.calculate(train_df,test_df)
 
-            report = json.loads(profile.json())
+            report = json.loads(profile.json()) 
+            
+            # profile.json is a string which is from json file we need
+            # json.loads loads the string format into the json file format
 
             report_file_path = self.data_validation_config.report_file_path
             report_dir = os.path.dirname(report_file_path)
@@ -99,6 +106,8 @@ class DataValidation:
             return report
         except Exception as e:
             raise housing_exception(e,sys) from e
+
+
 
     def save_data_drift_report_page(self):
         try:
@@ -143,3 +152,6 @@ class DataValidation:
 
     def __del__(self):
         logging.info(f"{'>>'*30}Data Valdaition log completed.{'<<'*30} \n\n")
+
+
+    # when we try to mop

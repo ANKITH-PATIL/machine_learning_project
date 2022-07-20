@@ -130,3 +130,28 @@ to run jupyter notebook commands
 ```
 pip install ipykernel
 ```
+
+```
+Data versioning :
+```
+
+```
+every time we run the program we create a new file based on specific timestamp thus thse different times have resulted into different data versions
+```
+
+```
+INTERVIEW QUESTION:
+ where have u done hypothesis testing in the pipeline? 
+```
+```
+when i was retraining my model, thats when i had done hypothesis testing to compare the distribution of the dataset by comparing the old training dataset and the new training dataset and we used the from scipy.stats import ks_2samp module and for further understanding of this module check out the example3.ipynb for how it exactly works
+
+also if the output of the above module is 1 then we consider that the distribution of the data is similar and we conclude that there is no data drift 
+```
+
+```
+refrences- Sources :
+```
+```
+mlops google cloud search this find the best material for knowing the pipeline of mlops
+``` 

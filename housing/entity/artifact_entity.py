@@ -1,4 +1,5 @@
 #these provide structure to the configuration package
+#these are the outputs that components are expected to give to the next component 
 
 
 from collections import namedtuple
@@ -9,3 +10,6 @@ DataIngestionArtifact = namedtuple("DataIngestionArtifact",
 DataValidationArtifact = namedtuple("DataValidationArtifact",
 ["schema_file_path","report_file_path","report_page_file_path","is_validated","message"])
 
+DataTransformationArtifact = namedtuple("DataTransformationArtifact",
+ ["is_transformed", "message", "transformed_train_file_path","transformed_test_file_path",
+     "preprocessed_object_file_path"])
