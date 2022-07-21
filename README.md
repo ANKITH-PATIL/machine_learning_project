@@ -166,3 +166,7 @@ u dont need to declare the first parameter as the self in the function of static
 we can call this function by just using the class and not giving the input values of the class which are present in the init constructor
 we can this function easily without any issue
 ```
+
+```
+error: make sure that the data validation config contains the schema.dir as the part of its dictionary and see to it that it will reflect in the subsequent programs
+``` 
