@@ -67,6 +67,7 @@ def load_numpy_array_data(file_path: str) -> np.array:
 
 def save_object(file_path:str,obj):
     """
+    saves the preprocessing object
     file_path: str
     obj: Any sort of object
     """
@@ -89,6 +90,7 @@ def load_object(file_path:str):
     except Exception as e:
         raise housing_exception(e,sys) from e
 
+# We try to diffrentiate the categorical and numerical features from the main dataframe using the following function
 
 def load_data(file_path: str, schema_file_path: str) -> pd.DataFrame:
     try:

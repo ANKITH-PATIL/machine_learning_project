@@ -155,3 +155,14 @@ refrences- Sources :
 ```
 mlops google cloud search this find the best material for knowing the pipeline of mlops
 ``` 
+
+```
+@staticmethod
+```
+```
+when u r not using any information from the self or the init constructor of a class
+
+u dont need to declare the first parameter as the self in the function of static method
+we can call this function by just using the class and not giving the input values of the class which are present in the init constructor
+we can this function easily without any issue
+```

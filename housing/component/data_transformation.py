@@ -75,6 +75,7 @@ class FeatureGenerator(BaseEstimator, TransformerMixin):
                                     X[:, self.total_rooms_ix]
                 generated_feature = np.c_[
                     X, room_per_household, population_per_household, bedrooms_per_room]
+# np.c_ concatenates all the arrays into a table provide they have similar number of rows
             else:
                 generated_feature = np.c_[
                     X, room_per_household, population_per_household]
@@ -112,7 +113,12 @@ class DataTransformation:
 
             numerical_columns = dataset_schema[NUMERICAL_COLUMN_KEY]
             categorical_columns = dataset_schema[CATEGORICAL_COLUMN_KEY]
+# now we need to create 2 transformation pipeline for categorical and numerical  as the operations we do on numerical columns dffer 
+#from categorical col operations 
 
+# Using the pipeline we create the list of steps to create the steps for transformations as done below of the numerical features
+# featuregenerator is our custom transformer
+# the following creates the feature pipeline
 
             num_pipeline = Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy="median")),
@@ -123,7 +129,7 @@ class DataTransformation:
                 ('scaler', StandardScaler())
             ]
             )
-
+#this is categorical col pipeline
             cat_pipeline = Pipeline(steps=[
                  ('impute', SimpleImputer(strategy="most_frequent")),
                  ('one_hot_encoder', OneHotEncoder()),
@@ -134,7 +140,8 @@ class DataTransformation:
             logging.info(f"Categorical columns: {categorical_columns}")
             logging.info(f"Numerical columns: {numerical_columns}")
 
-
+#the following preprocessing object is saved as the pickle file 
+# A nd when there is new data we just use transform and enter the new data
             preprocessing = ColumnTransformer([
                 ('num_pipeline', num_pipeline, numerical_columns),
                 ('cat_pipeline', cat_pipeline, categorical_columns),
