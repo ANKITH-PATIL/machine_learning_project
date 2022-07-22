@@ -170,3 +170,36 @@ we can this function easily without any issue
 ```
 error: make sure that the data validation config contains the schema.dir as the part of its dictionary and see to it that it will reflect in the subsequent programs
 ``` 
+```
+Errors which i have faced:
+1. error in the config entity named tuple of the component 
+
+2. error in the config.yaml file of not defining the schema
+
+3. error in naming the read_yaml_file(filepath) keyword error
+```
+
+```
+FYI:
+
+1.  transformed_train_file_path='c:\\Users\\Ankith\\machine_learning_project\\housing\\artifact\\data_transformation\\2022-07-22_10-42-23\\transformed_data\\train\\housing.npz',
+
+contains the np array train file likewise it also has the test file
+```
+
+```
+Entity >>> model_factory.py:
+
+it can dynamically train any kind of model
+```
+
+```
+u have written the model factory to ease the process of finding the best machine learning model
+```
+```
+model evaluation >>> will check the new models performance as compared to the present a
+                     and if better then will proceed to the model pusher component
+
+model pusher >>> will push the path where the trained model is loacted to saved model folder where it is saved
+it can also send the models to the cloud as well
+``` 

@@ -109,7 +109,7 @@ class DataTransformation:
         try:
             schema_file_path = self.data_validation_artifact.schema_file_path
 
-            dataset_schema = read_yaml_file(file_path=schema_file_path)
+            dataset_schema = read_yaml_file(filepath=schema_file_path)
 
             numerical_columns = dataset_schema[NUMERICAL_COLUMN_KEY]
             categorical_columns = dataset_schema[CATEGORICAL_COLUMN_KEY]
@@ -170,7 +170,7 @@ class DataTransformation:
             
             test_df = load_data(file_path=test_file_path, schema_file_path=schema_file_path)
 
-            schema = read_yaml_file(file_path=schema_file_path)
+            schema = read_yaml_file(filepath=schema_file_path)
 
             target_column_name = schema[TARGET_COLUMN_KEY]
 

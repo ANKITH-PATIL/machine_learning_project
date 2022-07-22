@@ -101,7 +101,10 @@ class Configuration:
 
             data_validation_config=self.config_info[DATA_VALIDATION_CONFIG_KEY]
 
-        
+# this was my error which i rectified using debug (faced it bcoz i dint update the yaml file)
+
+# schema_dir=os.path.join(ROOT_DIR,data_validation_config[DATA_VALIDATION_SCHEMA_DIR_KEY])
+
             schema_file_path = os.path.join(ROOT_DIR,
             data_validation_config[DATA_VALIDATION_SCHEMA_DIR_KEY],
             data_validation_config[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY]
