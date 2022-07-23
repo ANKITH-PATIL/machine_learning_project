@@ -1,6 +1,16 @@
+# this component compares the present productioned model and the new model and only if the performance is better the new model go for 
+# model pusher stage and if the new model is not better than the productionised model then the pipeline doesnt go further and this 
+# stage becomes the last.
+
+#the best model path is the input for this stage as it shows where most accurate model is located
+
+# here we do RETRAINING  >>>>> where we check the existing model with recently trained model after 
+# the existing accuracy condition is satisfied
+
+
 from housing.logger import logging
-from housing.exception import HousingException
-from housing.entity.config_entity import ModelEvaluationConfig
+from housing.exception import housing_exception
+from housing.entity.config_entity import Model_Evaluation_Config
 from housing.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,ModelTrainerArtifact,ModelEvaluationArtifact
 from housing.constant import *
 import numpy as np
@@ -14,7 +24,7 @@ from housing.entity.model_factory import evaluate_regression_model
 
 class ModelEvaluation:
 
-    def __init__(self, model_evaluation_config: ModelEvaluationConfig,
+    def __init__(self, model_evaluation_config: Model_Evaluation_Config,
                  data_ingestion_artifact: DataIngestionArtifact,
                  data_validation_artifact: DataValidationArtifact,
                  model_trainer_artifact: ModelTrainerArtifact):
@@ -25,7 +35,7 @@ class ModelEvaluation:
             self.data_ingestion_artifact = data_ingestion_artifact
             self.data_validation_artifact = data_validation_artifact
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def get_best_model(self):
         try:
@@ -46,7 +56,7 @@ class ModelEvaluation:
             model = load_object(file_path=model_eval_file_content[BEST_MODEL_KEY][MODEL_PATH_KEY])
             return model
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def update_evaluation_report(self, model_evaluation_artifact: ModelEvaluationArtifact):
         try:
@@ -79,7 +89,7 @@ class ModelEvaluation:
             write_yaml_file(file_path=eval_file_path, data=model_eval_content)
 
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def initiate_model_evaluation(self) -> ModelEvaluationArtifact:
         try:
@@ -122,6 +132,10 @@ class ModelEvaluation:
                 logging.info(f"Model accepted. Model eval artifact {model_evaluation_artifact} created")
                 return model_evaluation_artifact
 
+#this is point which considers that the model is not none and there were previous models and NOW 
+# the real comparison between old model and the previous best model starts
+
+
             model_list = [model, trained_model_object]
 
             metric_info_artifact = evaluate_regression_model(model_list=model_list,
@@ -133,6 +147,8 @@ class ModelEvaluation:
                                                                )
             logging.info(f"Model evaluation completed. model metric artifact: {metric_info_artifact}")
 
+# if the both the models fail to fulfill the base accuracy then the above evaluate_regression_model will return None 
+# the above condition might happen also when the accuracy is increased laterwards  
             if metric_info_artifact is None:
                 response = ModelEvaluationArtifact(is_model_accepted=False,
                                                    evaluated_model_path=trained_model_file_path
@@ -152,7 +168,7 @@ class ModelEvaluation:
                                                                     is_model_accepted=False)
             return model_evaluation_artifact
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def __del__(self):
         logging.info(f"{'=' * 20}Model Evaluation log completed.{'=' * 20} ")

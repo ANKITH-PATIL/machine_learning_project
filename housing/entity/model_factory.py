@@ -1,6 +1,10 @@
 from collections import namedtuple
 from typing import List
 from housing.logger import logging
+import sys,os,yaml,importlib
+import numpy as np
+import pandas as pd
+from housing.exception import housing_exception
 from sklearn.metrics import r2_score,mean_squared_error
 GRID_SEARCH_KEY = 'grid_search'
 MODULE_KEY = 'module'
@@ -107,7 +111,7 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
             logging.info(f"No model found with higher accuracy than base accuracy")
         return metric_info_artifact
     except Exception as e:
-        raise HousingException(e, sys) from e
+        raise housing_exception(e, sys) from e
 
 
 def get_sample_model_config_yaml_file(export_dir: str):
@@ -143,13 +147,17 @@ def get_sample_model_config_yaml_file(export_dir: str):
             yaml.dump(model_config, file)
         return export_file_path
     except Exception as e:
-        raise HousingException(e, sys)
+        raise housing_exception(e, sys)
 
 
 class ModelFactory:
     def __init__(self, model_config_path: str = None,):
         try:
+            # this is how u call an static function in a class as below class.function_name
+            
             self.config: dict = ModelFactory.read_params(model_config_path)
+
+# the config contains the dict of whatever is defined in the model.yaml file after reading it
 
             self.grid_search_cv_module: str = self.config[GRID_SEARCH_KEY][MODULE_KEY]
             self.grid_search_class_name: str = self.config[GRID_SEARCH_KEY][CLASS_KEY]
@@ -157,11 +165,10 @@ class ModelFactory:
 
             self.models_initialization_config: dict = dict(self.config[MODEL_SELECTION_KEY])
 
-            self.initialized_model_list = None
-            self.grid_searched_best_model_list = None
-
+            self.initialized_model_list = None  #here the model is saved before training just the model features 
+            self.grid_searched_best_model_list = None  # here models are saved after the grid search is done and the best model features is saved here
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     @staticmethod
     def update_property_of_class(instance_ref:object, property_data: dict):
@@ -174,7 +181,7 @@ class ModelFactory:
                 setattr(instance_ref, key, value)
             return instance_ref
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     @staticmethod
     def read_params(config_path: str) -> dict:
@@ -183,7 +190,7 @@ class ModelFactory:
                 config:dict = yaml.safe_load(yaml_file)
             return config
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     @staticmethod
     def class_for_name(module_name:str, class_name:str):
@@ -195,7 +202,7 @@ class ModelFactory:
             class_ref = getattr(module, class_name)
             return class_ref
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def execute_grid_search_operation(self, initialized_model: InitializedModelDetail, input_feature,
                                       output_feature) -> GridSearchedBestModel:
@@ -236,7 +243,7 @@ class ModelFactory:
             
             return grid_searched_best_model
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def get_initialized_model_list(self) -> List[InitializedModelDetail]:
         """
@@ -272,7 +279,7 @@ class ModelFactory:
             self.initialized_model_list = initialized_model_list
             return self.initialized_model_list
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def initiate_best_parameter_search_for_initialized_model(self, initialized_model: InitializedModelDetail,
                                                              input_feature,
@@ -292,7 +299,7 @@ class ModelFactory:
                                                       input_feature=input_feature,
                                                       output_feature=output_feature)
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def initiate_best_parameter_search_for_initialized_models(self,
                                                               initialized_model_list: List[InitializedModelDetail],
@@ -310,7 +317,7 @@ class ModelFactory:
                 self.grid_searched_best_model_list.append(grid_searched_best_model)
             return self.grid_searched_best_model_list
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     @staticmethod
     def get_model_detail(model_details: List[InitializedModelDetail],
@@ -323,7 +330,7 @@ class ModelFactory:
                 if model_data.model_serial_number == model_serial_number:
                     return model_data
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     @staticmethod
     def get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list: List[GridSearchedBestModel],
@@ -342,7 +349,7 @@ class ModelFactory:
             logging.info(f"Best model: {best_model}")
             return best_model
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def get_best_model(self, X, y,base_accuracy=0.6) -> BestModel:
         try:
@@ -357,4 +364,4 @@ class ModelFactory:
             return ModelFactory.get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list,
                                                                                   base_accuracy=base_accuracy)
         except Exception as e:
-            raise HousingException(e, sys)
+            raise housing_exception(e, sys)

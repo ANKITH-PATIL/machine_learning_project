@@ -3,14 +3,16 @@ import sys
 from housing.logger import logging
 from typing import List
 from housing.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact
-from housing.entity.config_entity import Model_Trainer_Config
-from housing.util.util import load_numpy_array_data,save_object,load_object
+from housing.entity.config_entity import  Model_Trainer_Config
+from housing.util.util import load_data, load_numpy_array_data,save_object,load_object
 from housing.entity.model_factory import MetricInfoArtifact, ModelFactory,GridSearchedBestModel
 from housing.entity.model_factory import evaluate_regression_model
 
 
 
 class HousingEstimatorModel:
+    '''this class returns the pre processing and the predicted value called by the 
+    model trainer below '''
     def __init__(self, preprocessing_object, trained_model_object):
         """
         TrainedModel constructor
@@ -24,10 +26,16 @@ class HousingEstimatorModel:
         """
         function accepts raw inputs and then transformed raw input using preprocessing_object
         which gurantees that the inputs are in the same format as the training data
-        At last it perform prediction on transformed features
+        At last it perform prediction on transformed features and returns the final predicted values
         """
+
+# the transformed feature here will contain the refined data after standard scaler and other preprocessing   
         transformed_feature = self.preprocessing_object.transform(X)
+
+# while the below one uses the predict function into the trained model to get the final predicted value
         return self.trained_model_object.predict(transformed_feature)
+
+#thua when u call the 
 
     def __repr__(self):
         return f"{type(self.trained_model_object).__name__}()"
@@ -40,13 +48,13 @@ class HousingEstimatorModel:
 
 class ModelTrainer:
 
-    def __init__(self, model_trainer_config:ModelTrainerConfig, data_transformation_artifact: DataTransformationArtifact):
+    def __init__(self, model_trainer_config:Model_Trainer_Config, data_transformation_artifact: DataTransformationArtifact):
         try:
             logging.info(f"{'>>' * 30}Model trainer log started.{'<<' * 30} ")
             self.model_trainer_config = model_trainer_config
             self.data_transformation_artifact = data_transformation_artifact
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def initiate_model_trainer(self)->ModelTrainerArtifact:
         try:
@@ -89,6 +97,8 @@ class ModelTrainer:
             preprocessing_obj=  load_object(file_path=self.data_transformation_artifact.preprocessed_object_file_path)
             model_object = metric_info.model_object
 
+# here we created the housing model which whenever called will give us the predict then internally the preprocessing feature engg will happen
+
 
             trained_model_file_path=self.model_trainer_config.trained_model_file_path
             housing_model = HousingEstimatorModel(preprocessing_object=preprocessing_obj,trained_model_object=model_object)
@@ -109,7 +119,7 @@ class ModelTrainer:
             logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
             return model_trainer_artifact
         except Exception as e:
-            raise HousingException(e, sys) from e
+            raise housing_exception(e, sys) from e
 
     def __del__(self):
         logging.info(f"{'>>' * 30}Model trainer log completed.{'<<' * 30} ")

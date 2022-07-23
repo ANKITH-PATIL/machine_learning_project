@@ -165,6 +165,8 @@ when u r not using any information from the self or the init constructor of a cl
 u dont need to declare the first parameter as the self in the function of static method
 we can call this function by just using the class and not giving the input values of the class which are present in the init constructor
 we can this function easily without any issue
+
+if we want to call the fucntion in a class without initialising an object this method is better
 ```
 
 ```
@@ -202,4 +204,18 @@ model evaluation >>> will check the new models performance as compared to the pr
 
 model pusher >>> will push the path where the trained model is loacted to saved model folder where it is saved
 it can also send the models to the cloud as well
-``` 
+```
+
+```
+Re-training : done in the model evaluation component check for detailed understanding
+```
+```
+Q- if u change the preprocessing steps or feature engineering for new models subsequently thwn no need to manually 
+     those changes as we are keeping the model preprocessing and model training together 
+     CHECK OUT THE 9th JULY CLASS
+
+     so no isssue then thats why we have done this type of combination
+     only unless the structure of the data is changed like adding a column or deleting a column changing the datatype of the column 
+     then only we have to train the model from the starting and the base models would become irrelevant 
+```
+

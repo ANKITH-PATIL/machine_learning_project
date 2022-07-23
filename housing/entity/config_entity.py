@@ -13,7 +13,7 @@ Data_Transformation_Config=namedtuple("Data_Transformation_Config",[
 ])
 
 
-Model_Training_Config=namedtuple("Model_Training_Config",["trained_model_filepath","base_accuracy"])
+Model_Trainer_Config=namedtuple("Model_Training_Config",["trained_model_filepath","base_accuracy"])
 
 
 Model_Evaluation_Config=namedtuple("Model_Evaluation_Config",["model_evaluation_filepath","time_stamp"])
