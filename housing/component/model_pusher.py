@@ -1,3 +1,5 @@
+# this component will save the model in the saved models folder and ssubsequently to the cloud
+
 from housing.logger import logging
 from housing.exception import housing_exception
 from housing.entity.artifact_entity import ModelPusherArtifact, ModelEvaluationArtifact 
@@ -29,7 +31,11 @@ class ModelPusher:
             os.makedirs(export_dir, exist_ok=True)
 
             shutil.copy(src=evaluated_model_file_path, dst=export_model_file_path)
-            #we can call a function to save model to Azure blob storage/ google cloud strorage / s3 bucket
+#we can call a function to save model to Azure blob storage/ google cloud strorage / s3 bucket
+# also search how to upload file to cloud using python code 
+#and use that function here
+#check out readme for more details
+
             logging.info(
                 f"Trained model: {evaluated_model_file_path} is copied in export dir:[{export_model_file_path}]")
 

@@ -219,3 +219,11 @@ Q- if u change the preprocessing steps or feature engineering for new models sub
      then only we have to train the model from the starting and the base models would become irrelevant 
 ```
 
+```
+uploading model.pkl file to the S3/GCP/AZURE BLOB :
+
+1. make 2 functions in the utils folder and import it in the model pusher component
+2. the 2 functions are: a. to load model from the s3 bucket
+                        b. to save the model into s3 bucket
+
+

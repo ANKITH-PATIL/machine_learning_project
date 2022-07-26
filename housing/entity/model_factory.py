@@ -305,6 +305,11 @@ class ModelFactory:
                                                               initialized_model_list: List[InitializedModelDetail],
                                                               input_feature,
                                                               output_feature) -> List[GridSearchedBestModel]:
+#the difference between this method and the one above is that this gets the best parameters for a single model
+
+# while the other gets the best parameters for all the models
+
+#while if u have only one model then u call this method other wise u call the other function
 
         try:
             self.grid_searched_best_model_list = []
