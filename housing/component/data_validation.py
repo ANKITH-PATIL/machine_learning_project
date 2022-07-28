@@ -9,6 +9,8 @@ from evidently.model_profile.sections import DataDriftProfileSection
 from evidently.dashboard import Dashboard
 from evidently.dashboard.tabs import DataDriftTab
 import json
+from util.util import read_yaml_file
+from housing.constant import *
 
 class DataValidation:
     
@@ -60,10 +62,11 @@ class DataValidation:
             raise housing_exception(e,sys) from e
 
     
-    def validate_dataset_schema(self)->bool:
+    def validate_dataset_schema(self,schema_file_path,file_path)->bool:
         try:
             validation_status = False
-            
+            column_count_equal= False
+            column_names_same= False
             #Assigment validate training and testing dataset using schema file
             #1. Number of Column
             #2. Check the value of ocean proximity 
@@ -75,9 +78,28 @@ class DataValidation:
             #3. Check column names
 
             # we dont mmodify any data(thats done in the feature engineering stage) here we just check the above steps 
+            dataset_schema=read_yaml_file(schema_file_path)
+            schema=dataset_schema[DATASET_SCHEMA_COLUMNS_KEY]
+            
+            df=pd.read_csv(file_path=file_path)
 
+# checking column numbers in the schema file and dataset of the column same or not
+            if len(list(schema.keys()))==len(df.columns):
+                column_count_equal=True
+            
+# checking columns name in the schema file and dataset same or not
+            for col in df.columns:
+                if col in list(schema.keys()):
+                    df[col].astype(schema[col])
+                    column_names_same=True
+                else:
+                    column_names_same=False
+                    
+            if column_count_equal and column_names_same:
+                validation_status=True
+            
 
-            validation_status = True
+            #validation_status = True
             return validation_status 
         except Exception as e:
             raise housing_exception(e,sys) from e
