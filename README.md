@@ -1,7 +1,9 @@
 # machine_learning_project
+Application URL:
+[HousingPredictor](put the heroku appliaction link)
 
 # create conda environment
-'''
+```
 
 conda create -p venv python==3.7 -y
 
@@ -11,7 +13,7 @@ conda create -p venv python==3.7 -y
 # but we create an virtual env along with the project 
 
 first check whether u have the conda environment
-''' 
+``` 
 
 To set up a CI/CD pipeline we need 3 information:
 1. HEROKU email-id : ankithpatilbusiness@gmail.com
@@ -22,7 +24,7 @@ To set up a CI/CD pipeline we need 3 information:
 
 Dockerfile :
 
-''' For creating a Dockerimage we need to give set of instructions '''
+``` For creating a Dockerimage we need to give set of instructions ```
 
 docker image will be having smaller version of the python3.7 will be installed int he linux based system 
 

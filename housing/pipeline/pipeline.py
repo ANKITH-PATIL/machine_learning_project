@@ -200,6 +200,12 @@ class Pipeline(Thread):
         
         except Exception as e:
             raise housing_exception(e,sys) from e
+    
+    def run(self) -> None:
+        try:
+            self.run_pipeline()
+        except Exception as e:
+            raise e
 
 
         
