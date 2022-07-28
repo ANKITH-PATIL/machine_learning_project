@@ -7,4 +7,5 @@ PyYAML
 ipykernel
 dill
 evidently
+six
 -e .

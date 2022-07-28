@@ -9,6 +9,7 @@ from housing.entity.config_entity import Data_Ingestion_Config
 from housing.exception import housing_exception
 import os, sys
 import tarfile
+#from six.moves import urllib
 from six.moves import urllib
 import pandas as pd
 import numpy as np

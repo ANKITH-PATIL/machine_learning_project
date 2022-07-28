@@ -9,7 +9,7 @@ from evidently.model_profile.sections import DataDriftProfileSection
 from evidently.dashboard import Dashboard
 from evidently.dashboard.tabs import DataDriftTab
 import json
-from util.util import read_yaml_file
+from housing.util.util import read_yaml_file
 from housing.constant import *
 
 class DataValidation:
