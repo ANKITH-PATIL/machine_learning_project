@@ -221,7 +221,7 @@ class Configuration:
 
             model_evaluation_file_path = os.path.join(artifact_dir,
                                                     model_evaluation_config[MODEL_EVALUATION_FILE_NAME_KEY])
-            response = Model_Evaluation_Config(model_evaluation_file_path=model_evaluation_file_path,
+            response = Model_Evaluation_Config(model_evaluation_filepath=model_evaluation_file_path,
                                             time_stamp=self.time_stamp)
             
             

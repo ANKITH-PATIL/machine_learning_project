@@ -194,7 +194,7 @@ def update_model_config():
 
             write_yaml_file(file_path=MODEL_CONFIG_FILE_PATH, data=model_config)
 
-        model_config = read_yaml_file(file_path=MODEL_CONFIG_FILE_PATH)
+        model_config = read_yaml_file(filepath=MODEL_CONFIG_FILE_PATH)
         return render_template('update_model.html', result={"model_config": model_config})
 
     except  Exception as e:

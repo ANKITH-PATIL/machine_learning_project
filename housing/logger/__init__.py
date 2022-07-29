@@ -8,7 +8,7 @@ import pandas as pd
 from housing.constant import get_current_time_stamp
 
 
-LOG_DIR="housing_logs"
+LOG_DIR="logs"
 
 CURRENT_TIME_STAMP=  f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 

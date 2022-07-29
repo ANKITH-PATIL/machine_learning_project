@@ -40,13 +40,13 @@ class ModelEvaluation:
     def get_best_model(self):
         try:
             model = None
-            model_evaluation_file_path = self.model_evaluation_config.model_evaluation_file_path
+            model_evaluation_file_path = self.model_evaluation_config.model_evaluation_filepath
 
             if not os.path.exists(model_evaluation_file_path):
                 write_yaml_file(file_path=model_evaluation_file_path,
                                 )
                 return model
-            model_eval_file_content = read_yaml_file(file_path=model_evaluation_file_path)
+            model_eval_file_content = read_yaml_file(filepath=model_evaluation_file_path)
 
             model_eval_file_content = dict() if model_eval_file_content is None else model_eval_file_content
 
@@ -60,8 +60,8 @@ class ModelEvaluation:
 
     def update_evaluation_report(self, model_evaluation_artifact: ModelEvaluationArtifact):
         try:
-            eval_file_path = self.model_evaluation_config.model_evaluation_file_path
-            model_eval_content = read_yaml_file(file_path=eval_file_path)
+            eval_file_path = self.model_evaluation_config.model_evaluation_filepath
+            model_eval_content = read_yaml_file(filepath=eval_file_path)
             model_eval_content = dict() if model_eval_content is None else model_eval_content
             
             
@@ -107,7 +107,7 @@ class ModelEvaluation:
             test_dataframe = load_data(file_path=test_file_path,
                                                           schema_file_path=schema_file_path,
                                                           )
-            schema_content = read_yaml_file(file_path=schema_file_path)
+            schema_content = read_yaml_file(filepath=schema_file_path)
             target_column_name = schema_content[TARGET_COLUMN_KEY]
 
             # target_column
