@@ -62,7 +62,7 @@ class DataValidation:
             raise housing_exception(e,sys) from e
 
     
-    def validate_dataset_schema(self)->bool:#,schema_file_path,file_path)->bool:
+    def validate_dataset_schema(self,file_path)->bool:#,schema_file_path,file_path)->bool:
         try:
             # validation_status = True#
             # column_count_equal= False#
@@ -165,6 +165,7 @@ class DataValidation:
     def initiate_data_validation(self)->DataValidationArtifact :
         try:
             self.is_train_test_file_exists()
+            file_path=read_yaml_file()
             self.validate_dataset_schema()
             self.is_data_drift_found()
 
@@ -182,7 +183,7 @@ class DataValidation:
 
 
     def __del__(self):
-        logging.info(f"{'>>'*30}Data Valdaition log completed.{'<<'*30} \n\n")
+        logging.info(f"{'>>'*30}Data Validation log completed.{'<<'*30} \n\n")
 
 
     

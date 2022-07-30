@@ -6,6 +6,7 @@ from housing.entity.artifact_entity import ModelPusherArtifact, ModelEvaluationA
 from housing.entity.config_entity import Model_Pusher_Config
 import os, sys
 import shutil
+#from housing.util.util import upload_model_s3
 
 
 class ModelPusher:
@@ -31,6 +32,10 @@ class ModelPusher:
             os.makedirs(export_dir, exist_ok=True)
 
             shutil.copy(src=evaluated_model_file_path, dst=export_model_file_path)
+
+            #upload_model_s3(model_path=export_model_file_path)
+
+
 #we can call a function to save model to Azure blob storage/ google cloud strorage / s3 bucket
 # also search how to upload file to cloud using python code 
 #and use that function here

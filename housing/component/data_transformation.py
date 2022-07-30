@@ -113,7 +113,7 @@ class DataTransformation:
 
             numerical_columns = dataset_schema[NUMERICAL_COLUMN_KEY]
             categorical_columns = dataset_schema[CATEGORICAL_COLUMN_KEY]
-# now we need to create 2 transformation pipeline for categorical and numerical  as the operations we do on numerical columns dffer 
+# now we need to create 2 transformation pipeline for categorical and numerical  as the operations we do on numerical columns differ 
 #from categorical col operations 
 
 # Using the pipeline we create the list of steps to create the steps for transformations as done below of the numerical features
@@ -133,7 +133,8 @@ class DataTransformation:
             cat_pipeline = Pipeline(steps=[
                  ('impute', SimpleImputer(strategy="most_frequent")),
                  ('one_hot_encoder', OneHotEncoder()),
-                 ('scaler', StandardScaler(with_mean=False))
+                 ('scaler', StandardScaler(with_mean=False))# this step acc to krish sir is not required bcoz the categorical 
+                 #data is already in scaled values bcoz of the one hot encoding which we did 
             ]
             )
 
