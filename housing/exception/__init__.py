@@ -39,8 +39,9 @@ class housing_exception(Exception):
 
     
     def __str__(self) -> str: #whenever u want to print the output of any class what information should be displayed is given by this function
-        return self.error_message
+        return self.error_message #when printing of the object is called then this is printed 
 
     
-    def __repr__(self) -> str:
+    def __repr__(self) -> str: # how object will be represented is given by this function 
         return housing_exception.__name__.str()
+# thus whatever is given in this function is output value when an object of the class is prepared
