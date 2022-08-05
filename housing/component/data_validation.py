@@ -62,7 +62,7 @@ class DataValidation:
             raise housing_exception(e,sys) from e
 
     
-    def validate_dataset_schema(self,file_path)->bool:#,schema_file_path,file_path)->bool:
+    def validate_dataset_schema(self)->bool:#,schema_file_path,file_path)->bool:
         try:
             # validation_status = True#
             # column_count_equal= False#
