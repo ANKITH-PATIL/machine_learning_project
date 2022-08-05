@@ -14,11 +14,4 @@ model_selection:
       fit_intercept:
       - true
       - false
-  module_1:
-    class: RandomForestRegressor
-    module: sklearn.ensemble
-    params:
-      min_samples_leaf: 3
-    search_param_grid:
-      min_samples_leaf:
-      - 4
+
